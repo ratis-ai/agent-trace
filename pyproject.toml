@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "agent-trace"
+version = "0.1.0"
+description = "Universal agent observability tool. TL;DR - Datadog for agents."
+authors = []
+readme = "README.md"
+packages = [{include = "agent_trace"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+click = "*"
+rich = "*"
+pydantic = "^2.0.0"
+python-dotenv = "*"
+crewai = {extras = ["tools"], version = "0.108.0"}
+langchain = ">=0.3.0"
+openai = ">=1.70.0"  # Required by CrewAI
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+black = "^23.0.0"
+isort = "^5.0.0"
+
+[tool.poetry.scripts]
+agent-trace = "agent_trace.cli.main:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 
