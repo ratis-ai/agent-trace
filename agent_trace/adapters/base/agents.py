@@ -28,8 +28,10 @@ class AgentTrace(ABC):
 
     def create_traced_execute(self, original_execute):
         """Create a traced version of the execute method."""
+        logger.debug(f"Creating traced execute method for {original_execute}")
         @wraps(original_execute)
         def traced_execute(agent_instance, *args, **kwargs):
+            logger.debug(f"Executing traced execute method for {original_execute}")
             trace_id = str(uuid.uuid4())
             started_at = datetime.datetime.now().isoformat()
             agent_name = self.get_agent_name(agent_instance)
@@ -75,6 +77,9 @@ class AgentTrace(ABC):
         """
         logger.info("Tracing Agent execution")
         original_execute = self.get_original_execute_method()
+        logger.debug(f"Original-execute method: {original_execute}")
         traced_execute = self.create_traced_execute(original_execute)
+        logger.debug(f"Traced-execute method: {traced_execute}")
         self.set_execute_method(traced_execute)
+        logger.info("Tracing Agent execution complete")
         

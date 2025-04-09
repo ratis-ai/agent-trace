@@ -42,7 +42,7 @@ class Trace(BaseModel):
     trace_id: UUID = Field(default_factory=uuid4)
     name: str
     started_at: datetime = Field(default_factory=lambda: datetime.now())
-    steps: List[Union[ToolStep, ReasoningStep]] = Field(default_factory=list)
+    steps: List[Union[ToolStep, ReasoningStep, AgentStep, TaskStep]] = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     ended_at: Optional[datetime] = None
     
